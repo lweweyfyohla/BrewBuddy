@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap" rel="stylesheet">
+    <title>BrewBuddy Cafe</title>
+</head>
+<body>
+  <header>
+        <div class="brewhead">
+        <img src="img/brew.png" alt="">
+        <h1 class="logo_text">
+        <span class="brew">Brew</span>Buddy
+        </h1>
+        </div>
+<div class="nav-container">
+  <a href="home.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="membership.html">Membership</a>
+  <a href="drinkquiz.html" class="drink">Drink Quiz</a>
+</div>
+    <div class="top_right">
+      <div class="cart">
+          <ion-icon name="cart-outline"></ion-icon>
+          <span>Start Ordering</span>
+      </div>
+    <div class="profile">
+      <img src="img/profile.png" alt="">
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </div>
+    </div>
+    </header>
+    
+    <div class="quiz_banner">
+        <h1>Drink Quiz</h1>
+        <p>Discover your perfect coffee match!</p>
+    </div>
+
+    <section class="quiz_content">
+        <div class="quiz_container">
+            <div class="quiz_card">
+                <h2>Find Your Perfect Brew</h2>
+                <p>Answer a few questions and we'll recommend the perfect drink for you!</p>
+                
+                <div class="quiz_question" id="question1">
+                    <h3>How do you like your coffee strength?</h3>
+                    <div class="quiz_options">
+                        <button class="quiz_option" data-value="mild">Mild & Smooth</button>
+                        <button class="quiz_option" data-value="medium">Medium Strength</button>
+                        <button class="quiz_option" data-value="strong">Strong & Bold</button>
+                    </div>
+                </div>
+                
+                <div class="quiz_question" id="question2" style="display: none;">
+                    <h3>What's your preferred temperature?</h3>
+                    <div class="quiz_options">
+                        <button class="quiz_option" data-value="hot">Hot</button>
+                        <button class="quiz_option" data-value="iced">Iced</button>
+                        <button class="quiz_option" data-value="both">Either</button>
+                    </div>
+                </div>
+                
+                <div class="quiz_question" id="question3" style="display: none;">
+                    <h3>How sweet do you like it?</h3>
+                    <div class="quiz_options">
+                        <button class="quiz_option" data-value="unsweetened">No sweetness</button>
+                        <button class="quiz_option" data-value="lightly">Lightly sweet</button>
+                        <button class="quiz_option" data-value="sweet">Sweet</button>
+                        <button class="quiz_option" data-value="very-sweet">Very sweet</button>
+                    </div>
+                </div>
+                
+                <div class="quiz_result" id="result" style="display: none;">
+                    <h3>Your Perfect Match:</h3>
+                    <div class="result_drink">
+                        <img id="result_image" src="" alt="">
+                        <h4 id="result_name"></h4>
+                        <p id="result_description"></p>
+                        <button class="order_btn">Order Now</button>
+                    </div>
+                </div>
+                
+                <button class="restart_btn" id="restart" style="display: none;">Take Quiz Again</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let answers = {};
+        let currentQuestion = 1;
+        
+        const drinks = {
+            'mild-hot-unsweetened': {
+                name: 'Classic Americano',
+                image: 'img/cafedrink.jpg',
+                description: 'A smooth, mild coffee perfect for purists who enjoy the natural coffee flavor.'
+            },
+            'strong-iced-sweet': {
+                name: 'Iced Caramel Macchiato',
+                image: 'img/cafedrink.jpg',
+                description: 'A bold coffee with sweet caramel flavors, served over ice for the perfect refreshing treat.'
+            },
+            'medium-hot-lightly': {
+                name: 'Cappuccino',
+                image: 'img/cafedrink.jpg',
+                description: 'A perfect balance of espresso, steamed milk, and foam with just a hint of sweetness.'
+            }
+        };
+        
+        document.querySelectorAll('.quiz_option').forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.closest('.quiz_question');
+                const questionId = question.id;
+                answers[questionId] = this.dataset.value;
+                
+                // Hide current question
+                question.style.display = 'none';
+                
+                if (currentQuestion < 3) {
+                    currentQuestion++;
+                    document.getElementById('question' + currentQuestion).style.display = 'block';
+                } else {
+                    showResult();
+                }
+            });
+        });
+        
+        function showResult() {
+            const resultKey = Object.values(answers).join('-');
+            const drink = drinks[resultKey] || drinks['medium-hot-lightly'];
+            
+            document.getElementById('result_image').src = drink.image;
+            document.getElementById('result_name').textContent = drink.name;
+            document.getElementById('result_description').textContent = drink.description;
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('restart').style.display = 'block';
+        }
+        
+        document.getElementById('restart').addEventListener('click', function() {
+            answers = {};
+            currentQuestion = 1;
+            
+            document.querySelectorAll('.quiz_question').forEach(q => q.style.display = 'none');
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('restart').style.display = 'none';
+            document.getElementById('question1').style.display = 'block';
+        });
+    </script>
+
+    <footer>
+        <div class="footerInfo">
+            <div class="footer_left">
+                <h2>Contact Us</h2>
+                <p>No. 8, Sangkat Boeng Kak 1, St 315, Phnom Penh</p>
+                <p>Gmail: cafe@brewbuddy.com</p>
+                <p>Tel: +898 345 34523 34</p>
+            </div>
+            <div class="footerWarpRight">
+                <div class="footer_right">
+                    <h3><span>Brew</span>Buddy</h3>
+                    <div class="footer_icon">
+                        <ion-icon name="logo-instagram"></ion-icon>
+                        <ion-icon name="logo-facebook"></ion-icon>
+                        <ion-icon name="logo-tiktok"></ion-icon>
+                        <ion-icon name="logo-twitter"></ion-icon>
+                    </div>
+                </div>
+                <img src="img/buddy.jpg" alt="">
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
