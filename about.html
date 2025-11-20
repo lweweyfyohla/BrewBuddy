@@ -27,16 +27,16 @@
   <a href="membership.html">Membership</a>
   <a href="drinkquiz.html">Drink Quiz</a>
 </div>
-    <div class="top_right">
-      <div class="cart">
-          <ion-icon name="cart-outline"></ion-icon>
-          <span>Start Ordering</span>
-      </div>
-    <div class="profile">
-      <img src="img/profile.png" alt="">
-      <ion-icon name="chevron-down-outline"></ion-icon>
-    </div>
-    </div>
+        <div class="top_right">
+            <div class="cart" id="start-order">
+                    <ion-icon name="cart-outline"></ion-icon>
+                    <span>Start Ordering</span>
+            </div>
+        <div class="profile" id="profile-btn">
+            <img src="img/profile.png" alt="">
+            <ion-icon name="chevron-down-outline"></ion-icon>
+        </div>
+        </div>
     </header>
 <div class="about_banner">
     <h1>about us</h1>
@@ -83,5 +83,50 @@
         </div>
     </div>
 </footer>
+
+<div id="profile-modal" class="profile-modal" aria-hidden="true">
+    <div class="profile-content">
+        <button class="profile-close" id="profile-close" aria-label="Close profile">×</button>
+        <div class="profile-body">
+            <div class="profile-header">
+                <img src="img/profile.png" alt="profile" class="profile-large">
+                <h3 id="profile-name">Guest</h3>
+                <p class="email" id="profile-email">guest@brewbuddy.com</p>
+            </div>
+            <ul class="profile-links">
+                <li><a href="membership.html">My Membership</a></li>
+                <li><a href="order.html" id="profile-orders-link">My Orders</a></li>
+                <li><a href="#" id="profile-logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="order-modal" class="order-modal" aria-hidden="true">
+    <div class="modal-content">
+        <button class="order-close" id="order-close" aria-label="Close order">×</button>
+        <div class="order-wrap">
+            <h2>Start Your Order</h2>
+            <div class="order-grid">
+                <section class="catalog" id="modal-catalog">
+                    <h3>Menu</h3>
+                </section>
+                <aside class="cartbox">
+                    <h3>Your Cart</h3>
+                    <div class="cart-items" id="modal-cart-items">
+                        <div class="empty">Your cart is empty.</div>
+                    </div>
+                    <div style="margin-top:1rem;display:flex;justify-content:space-between;align-items:center">
+                        <strong>Total:</strong>
+                        <strong id="modal-cart-total">$0.00</strong>
+                    </div>
+                    <a href="#" class="checkout" id="modal-checkout-btn">Proceed to Checkout</a>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="order.js"></script>
 </body>
 </html>
